@@ -1,5 +1,7 @@
+@using BioEngine.Core.Entities
 @using BioEngine.Core.Entities.Blocks
 @using BioEngine.Core.Site.Model
+@using BioEngine.Core.Web.Models
 @model EntityViewModel<BioEngine.Core.Entities.IContentEntity>
 @{
 
@@ -7,7 +9,7 @@
     {
         if (block is CutBlock)
         {
-            if (Model.Mode == EntityViewMode.Entity)
+            if (Model.Mode == ContentEntityViewMode.Entity)
             {
                 continue;
             }
@@ -22,7 +24,7 @@
         </div>
         if (block is CutBlock)
         {
-            if (Model.Mode == EntityViewMode.List)
+            if (Model.Mode == ContentEntityViewMode.List)
             {
                 break;
             }

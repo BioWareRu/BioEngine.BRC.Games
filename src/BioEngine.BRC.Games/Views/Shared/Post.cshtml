@@ -1,5 +1,5 @@
 @using System.Globalization
-@using BioEngine.Core.Site.Model
+@using BioEngine.Core.Entities
 @model BioEngine.Core.Site.Model.PostViewModel
 @{
     var dateString = Model.Entity.DateAdded.DateTime.Year == DateTime.Now.Year ? Model.Entity.DateAdded.DateTime.ToString("d MMMM") : Model.Entity.DateAdded.DateTime.ToString("d MMMM yyyy");
@@ -17,10 +17,10 @@
 
                 @switch (Model.Mode)
                 {
-                    case EntityViewMode.List:
+                    case ContentEntityViewMode.List:
                         <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
                         break;
-                    case EntityViewMode.Entity:
+                    case ContentEntityViewMode.Entity:
                         @Model.Entity.Title
                         break;
                     default:

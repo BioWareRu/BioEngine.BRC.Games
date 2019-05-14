@@ -1,4 +1,4 @@
-@using BioEngine.Core.Site.Model
+@using BioEngine.Core.Entities
 @model BioEngine.Core.Site.Model.EntityViewModel<BioEngine.Core.Entities.Page>
 @{
     Layout = "~/Views/_Main.cshtml";
@@ -10,10 +10,10 @@
 
                 @switch (Model.Mode)
                 {
-                    case EntityViewMode.List:
+                    case ContentEntityViewMode.List:
                         <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
                         break;
-                    case EntityViewMode.Entity:
+                    case ContentEntityViewMode.Entity:
                         @Model.Entity.Title
                         break;
                     default:
