@@ -1,0 +1,31 @@
+@using BioEngine.Core.Entities.Blocks
+@using BioEngine.Core.Site.Model
+@model EntityViewModel<BioEngine.Core.Entities.IContentEntity>
+@{
+
+    foreach (var block in Model.Entity.Blocks.OrderBy(b => b.Position))
+    {
+        if (block is CutBlock)
+        {
+            if (Model.Mode == EntityViewMode.Entity)
+            {
+                continue;
+            }
+        }
+
+        var modelType = typeof(BlockViewModel<,>).MakeGenericType(block.GetType(), block.GetData().GetType());
+        var model = Activator.CreateInstance(modelType, block, Model.Entity);
+        <div class="block block-@block.Type">
+            @{
+                await Html.RenderPartialAsync($"Blocks/{block.Type}", model);
+            }
+        </div>
+        if (block is CutBlock)
+        {
+            if (Model.Mode == EntityViewMode.List)
+            {
+                break;
+            }
+        }
+    }
+}

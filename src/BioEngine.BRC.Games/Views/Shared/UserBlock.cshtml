@@ -1,0 +1,34 @@
+@using System.Security.Claims
+
+<div class="card mb-4 black">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="card-body">
+            <div class="auth auth_sign-in">
+                <a href="@(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Webpage)?.Value)">
+                    <img src="@(User.Claims.FirstOrDefault(x => x.Type == "avatarUrl")?.Value)" alt="@User.Identity.Name" class="rounded-circle img-fluid auth__userpic"/>
+                </a>
+                <a class="auth__username @if (User.HasClaim(x => x.Type == "renegade"))
+                                         {
+                                             <text>auth__username-renegate</text>
+                                         } "
+                   href="@(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Webpage)?.Value)">
+                    @User.Identity.Name</a>
+                <a class="auth__exit" href="@Url.Action("Logout", "User")">Выход</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card-body">
+            <div class="auth">
+                <a href="@Url.Action("Login", "User")" class="auth__login">
+                    <span class="auth__text">Войти</span>
+                </a>
+                <a class="auth__reg" href="http://forum.bioware.ru/index.php?app=core&module=global&section=register">
+                    <span class="auth__text">Регистрация</span>
+                </a>
+            </div>
+        </div>
+    }
+</div>

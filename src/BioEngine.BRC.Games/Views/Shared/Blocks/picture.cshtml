@@ -1,0 +1,15 @@
+@model BioEngine.Core.Site.Model.BlockViewModel<BioEngine.Core.Entities.Blocks.PictureBlock, BioEngine.Core.Entities.Blocks.PictureBlockData>
+
+
+@{
+    var image = Model.Block.Data.Picture;
+    var url = !string.IsNullOrEmpty(Model.Block.Data.Url) ? Model.Block.Data.Url : image.PublicUri.ToString();
+}
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <a href="@url" target="_blank">
+            <img src="@image.PublicUri" class="img-fluid z-depth-1"
+                 alt="@image.FileName"/>
+        </a>
+    </div>
+</div>

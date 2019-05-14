@@ -1,0 +1,7 @@
+@model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.Post>
+@{
+    Layout = "~/Views/_Main.cshtml";
+}
+@{
+    await Html.RenderPartialAsync("PostsList", Model);
+}

@@ -1,0 +1,28 @@
+@model BioEngine.Core.Site.Model.ListViewModel<BioEngine.Core.Entities.Post>
+@{
+    Layout = "~/Views/_Main.cshtml";
+}
+<div class="card mb-4">
+    <img class="card-img-top" src="@Model.Section.Logo.PublicUri" alt="@Model.Section.Title"/>
+    <section class="card-body">
+        <header>
+            <h1 class="card-title">
+                <img class="img-fluid" src="@Model.Section.LogoSmall.PublicUri" alt="@Model.Section.Title"/> @Model.Section.Title
+            </h1>
+        </header>
+    </section>
+</div>
+
+<section class="navbar navbar-dark p-2 mb-4">
+    <ul class="nav nav-pills darken-2">
+        <li class="nav-item">
+            <a class="nav-link" href="@Model.Section.PublicUrl">Об игре</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="@Model.Section.PostsUrl">Публикации</a>
+        </li>
+    </ul>
+</section>
+@{
+    await Html.RenderPartialAsync("PostsList", Model);
+}

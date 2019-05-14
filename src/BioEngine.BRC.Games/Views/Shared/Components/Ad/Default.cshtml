@@ -1,0 +1,14 @@
+@model BioEngine.Extra.Ads.Site.AdViewModel
+@if (Model != null)
+{
+    <div class="card mb-4">
+        <!--Card content-->
+        <div class="card-body">
+            <h4 class="card-title">@Model.Ad.Title</h4>
+            @* ReSharper disable once Mvc.ActionNotResolved *@
+            <a href="@Url.Action("Redirect", "Ads", new {adId = Model.Ad.Id})" target="_blank">
+                <img class="img-fluid" alt="@Model.Ad.Title" src="@Model.Ad.Picture.PublicUri" style="border:0;"/>
+            </a>
+        </div>
+    </div>
+}

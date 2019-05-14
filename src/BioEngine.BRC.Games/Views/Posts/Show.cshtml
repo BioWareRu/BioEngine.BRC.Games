@@ -1,0 +1,5 @@
+@model BioEngine.Core.Site.Model.PostViewModel
+@{
+    Layout = "~/Views/_Main.cshtml";
+    await Html.RenderPartialAsync("Post", Model);
+}

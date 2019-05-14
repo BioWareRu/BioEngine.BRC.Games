@@ -1,0 +1,87 @@
+@using System.Globalization
+@using BioEngine.Core.Site.Model
+@model BioEngine.Core.Site.Model.PostViewModel
+@{
+    var dateString = Model.Entity.DateAdded.DateTime.Year == DateTime.Now.Year ? Model.Entity.DateAdded.DateTime.ToString("d MMMM") : Model.Entity.DateAdded.DateTime.ToString("d MMMM yyyy");
+}
+<article class="card mb-4 post">
+    <section class="card-body">
+        <header>
+            <div class="author">
+                <a href="@Model.Entity.Author.ProfileUrl">
+                    <img src="@Model.Entity.Author.PhotoUrl" alt="@Model.Entity.Author.Name" class="rounded-circle img-fluid"/> @Model.Entity.Author.Name</a>
+                <time datetime="@Model.Entity.DateAdded.DateTime.ToString("s", CultureInfo.InvariantCulture)">@dateString в @Model.Entity.DateAdded.DateTime.ToShortTimeString()</time>
+            </div>
+
+            <h2 class="card-title">
+
+                @switch (Model.Mode)
+                {
+                    case EntityViewMode.List:
+                        <a class="article-list__permalink" href="@Model.Entity.PublicUrl">@Model.Entity.Title</a>
+                        break;
+                    case EntityViewMode.Entity:
+                        @Model.Entity.Title
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            </h2>
+        </header>
+        <div class="sections">
+            @Html.Raw(string.Join(", ", Model.Entity.Sections.Select(section => $"<a href=\"{section.PublicUrl}\">{section.Title}</a>")))
+        </div>
+        @{
+            await Html.RenderPartialAsync("Blocks/Blocks", Model.ContentEntityViewModel());
+        }
+    </section>
+    <footer class="card-footer">
+        @if (Model.Entity.Tags.Any())
+        {
+            <div class="row tags">
+                <div class="col-12">
+                    Тэги:
+                    @foreach (var tag in Model.Entity.Tags)
+                    {
+                        @Html.ActionLink(tag.Title, "ListByTagAsync", "Posts", new {tagName = tag.Title})
+                        if (tag != Model.Entity.Tags.Last())
+                        {
+                            <span>, </span>
+                        }
+                    }
+                </div>
+            </div>
+        }
+        <div class="row justify-content-between">
+            <div class="col-3">
+                @{
+                    <a class="btn-sm btn-blue waves-effect waves-light" href="@Model.CommentsUri">
+                        <i class="fas fa-comment-alt fa-fw fa-inverse"></i> @Model.CommentsCount</a>
+                }
+            </div>
+            <div class="col-5" style="text-align: right">
+                @{
+                    var fullUrl = Model.Site.Url + Model.Entity.PublicUrl;
+                }
+                <a class="btn-sm btn-blue waves-effect waves-light" href="https://www.facebook.com/sharer/sharer.php?u=@fullUrl" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false">
+                    <i class="fab fa-facebook-f fa-fw fa-inverse"></i>
+                </a>
+
+                <a class="btn-sm btn-blue waves-effect waves-light" href="https://twitter.com/intent/tweet?text=@Model.Entity.Title+@fullUrl+via+%brcgames" title="Опубликовать ссылку в Twitter" onclick="window.open(this.href, 'Опубликовать ссылку в Twitter', 'width=800,height=300,resizable=yes,toolbar=0,status=0'); return false">
+                    <i class="fab fa-twitter fa-fw  fa-inverse"></i>
+                </a>
+
+                <a class="btn-sm btn-blue waves-effect waves-light" href="https://vk.com/share.php?url=@fullUrl" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во ВКонтакте', 'width=800,height=300,toolbar=0,status=0'); return false">
+                    <i class="fab fa-vk fa-fw  fa-inverse"></i>
+                </a>
+
+                <a class="btn-sm btn-blue waves-effect waves-light" href="https://t.me/share/url?url=@fullUrl&title=@Model.Entity.Title" title="Поделиться ссылкой в Telegram" onclick="window.open(this.href, 'Поделиться ссылкой в Telegram', 'width=800,height=300,toolbar=0,status=0'); return false">
+                    <i class="fab fa-telegram fa-fw  fa-inverse"></i>
+                </a>
+                <a class="btn-sm btn-blue waves-effect waves-light" href="https://getpocket.com/edit?url=@fullUrl&title=@Model.Entity.Title" title="Добавить ссылку в Pocket" target="_blank" rel=" noopener">
+                    <i class="fab fa-get-pocket fa-fw  fa-inverse"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</article>

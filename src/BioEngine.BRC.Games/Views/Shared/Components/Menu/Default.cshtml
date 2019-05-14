@@ -1,0 +1,10 @@
+@using BioEngine.Core.Site.ViewComponents
+@model BioEngine.Core.Entities.Menu
+@if (Model != null)
+{
+    await Html.RenderPartialAsync("Menu", new MenuLevel {Items = Model.Items, Level = 0});
+}
+else
+{
+    <div>MENU</div>
+}
