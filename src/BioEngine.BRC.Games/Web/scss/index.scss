@@ -23,11 +23,12 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import "widgets/pateron";
 
 body {
-    background: #415f8c url(../img/matreshka.png);
+    background: #111 url(../img/cp2077.png) no-repeat fixed;
+    background-size: cover;
 
     header {
         nav {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.4);
         }
     }
 }
