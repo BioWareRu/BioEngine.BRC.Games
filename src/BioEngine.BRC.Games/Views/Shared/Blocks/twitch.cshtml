@@ -1,8 +1,0 @@
-@model BioEngine.Core.Web.Models.BlockViewModel<BioEngine.BRC.Domain.Entities.Blocks.TwitchBlock, BioEngine.BRC.Domain.Entities.Blocks.TwitchBlockData>
-
-<div id="twitch-@Model.Block.Id" class="twitch-embed" 
-     data-video-id="@Model.Block.Data.VideoId" 
-     data-collection-id="@Model.Block.Data.CollectionId" 
-     data-channel-id="@Model.Block.Data.ChannelId">
-    <div class="preloader"><i class="fas fa-spinner fa-spin"></i> Загрузка видео</div>
-</div>
