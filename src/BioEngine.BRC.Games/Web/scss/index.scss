@@ -1,26 +1,8 @@
-@import "~bootstrap/scss/bootstrap";
-
-$roboto-font-path: './../../node_modules/mdbootstrap/font/roboto/';
-
-$image-path: './../../node_modules/mdbootstrap/img/';
-@import '~mdbootstrap/scss/mdb.scss';
+$roboto-font-path: '~mdbootstrap/font/roboto/';
+$image-path: '~mdbootstrap/img/';
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-@import "post";
-@import "menu";
-@import "sections";
-@import "blocks/youtube";
-@import "blocks/blockquote";
-@import "blocks/file";
-@import "blocks/gallery";
-@import "blocks/picture";
-@import "blocks/twitter";
-@import "blocks/twitch";
-@import "widgets/auth";
-@import "widgets/pateron";
+
+@import "~bioengine.brc.frontend/src/scss/index";
 
 body {
     background: #111 url(../img/cp2077.png) no-repeat fixed;
@@ -30,19 +12,5 @@ body {
         nav {
             background: rgba(0, 0, 0, 0.4);
         }
-    }
-}
-
-.card-body {
-    time {
-        font-size: 0.9em;
-    }
-
-    iframe {
-        max-width: 100%;
-    }
-
-    img {
-        max-width: 100%;
     }
 }

@@ -1,2 +1,3 @@
 require('./scss/index.scss');
-require('./ts/index');
+require('bioengine.brc.frontend');
+require('ts/index');
