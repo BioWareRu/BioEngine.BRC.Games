@@ -7,17 +7,20 @@ variables:
 
 steps:
     - task: UseDotNet@2
+      displayName: 'install .net core 3.0'
       inputs:
           packageType: sdk
           version: 3.0.100-preview5-011568
           includePreviewVersions: true
 
     - task: UseNode@1
+      displayName: 'install node'
       inputs:
-        version: '11.x'
-        checkLatest: true
-        
+          version: '11.x'
+          checkLatest: true
+
     - task: DotNetCoreCLI@2
+      displayName: 'dotnet restore'
       inputs:
           command: restore
           projects: '**/*.csproj'
@@ -25,15 +28,22 @@ steps:
           verbosityRestore: 'minimal'
           vstsFeed: 'BioEngine'
 
-    - task: Bash@3
+    - task: Npm@1
+      displayName: 'install npm packages'
       inputs:
-        targetType: 'inline'
-        workingDirectory: 'src/BioEngine.BRC.Games'
-        script: |
-            npm ci
-            npm run build-prod
+          command: 'custom'
+          customCommand: 'ci'
+          workingDir: 'src/BioEngine.BRC.Games'
+
+    - task: Npm@1
+      displayName: 'build frontend'
+      inputs:
+          command: 'custom'
+          customCommand: 'run build-prod'
+          workingDir: 'src/BioEngine.BRC.Games'
 
     - task: DotNetCoreCLI@2
+      displayName: 'publish app'
       inputs:
           command: custom
           custom: publish
@@ -43,15 +53,13 @@ steps:
           arguments: '--no-restore -c Release --output ./publish'
           projects: '**/*.csproj'
 
-    - script: |
-          docker build -f src/BioEngine.BRC.Games/Dockerfile ./publish -t $(ImageName)
-      displayName: 'build docker image'
-
-    - script: |
-          docker login -u $(dockerId) -p $(dockerPswd)
-      displayName: 'login to docker hub'
-
-    - script: |
-          docker push $(ImageName)
-      displayName: 'push image to docker hub'
+    - task: Docker@2
+      displayName: 'build and push image'
+      inputs:
+          containerRegistry: 'BioWareRU DockerHub'
+          repository: 'biowareru/bioengine-brc-games'
+          command: 'buildAndPush'
+          Dockerfile: 'src/BioEngine.BRC.Games/Dockerfile'
+          buildContext: './publish'
+          tags: '$(Version)'
     
