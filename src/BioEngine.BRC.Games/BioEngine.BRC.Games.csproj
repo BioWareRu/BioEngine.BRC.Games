@@ -15,6 +15,6 @@
     <PackageReference Include="BioEngine.BRC.Site" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.BRC.Common')" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.Core.Site')" />
+    <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Common')" />
   </ItemGroup>
 </Project>
