@@ -4,22 +4,23 @@ pool:
 variables:
     Version: '3.0.$(Build.BuildId)'
     ImageName: biowareru/bioengine-brc-games:$(Version)
-    DOTNET_SDK_VERSION: 3.0.100-preview6-012264
+    
 steps:
-    - task: Bash@3
+    - task: UseDotNet@2
       displayName: 'Install .Net Core 3.0'
       inputs:
-          targetType: 'inline'
-          script: 'mkdir -p $Agent.ToolsDirectory/dotnet && cd $Agent.ToolsDirectory && curl -SL --output dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz && tar -zxf dotnet.tar.gz -C dotnet && echo "##vso[task.setvariable variable=DOTNET_ROOT]$(pwd)/dotnet" && echo "##vso[task.setvariable variable=PATH]$(pwd)/dotnet:$PATH"'
+          packageType: sdk
+          version: 3.0.100-preview6-012264
+          includePreviewVersions: true
 
     - task: UseNode@1
-      displayName: 'install node'
+      displayName: 'Install node'
       inputs:
           version: '11.x'
           checkLatest: true
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet restore'
+      displayName: 'Restore packages'
       inputs:
           command: restore
           projects: '**/*.csproj'
@@ -28,21 +29,21 @@ steps:
           vstsFeed: 'BioEngine'
 
     - task: Npm@1
-      displayName: 'install npm packages'
+      displayName: 'Install npm packages'
       inputs:
           command: 'custom'
           customCommand: 'ci'
           workingDir: 'src/BioEngine.BRC.Games'
 
     - task: Npm@1
-      displayName: 'build frontend'
+      displayName: 'Build frontend'
       inputs:
           command: 'custom'
           customCommand: 'run build-prod'
           workingDir: 'src/BioEngine.BRC.Games'
 
     - task: DotNetCoreCLI@2
-      displayName: 'publish app'
+      displayName: 'Publish project'
       inputs:
           command: custom
           custom: publish
@@ -53,7 +54,7 @@ steps:
           projects: '**/*.csproj'
 
     - task: Docker@2
-      displayName: 'build and push image'
+      displayName: 'Build and push image'
       inputs:
           containerRegistry: 'BioWareRU DockerHub'
           repository: 'biowareru/bioengine-brc-games'
