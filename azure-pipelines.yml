@@ -1,65 +1,74 @@
-pool:
-    vmImage: 'Ubuntu 16.04'
-
 variables:
-    Version: '3.0.$(Build.BuildId)'
-    ImageName: biowareru/bioengine-brc-games:$(Version)
-    
-steps:
-    - task: UseDotNet@2
-      displayName: 'Install .Net Core 3.0'
-      inputs:
-          packageType: sdk
-          version: 3.0.100-preview6-012264
-          includePreviewVersions: true
+    Version: 3.0.$(Build.BuildId)
 
-    - task: UseNode@1
-      displayName: 'Install node'
-      inputs:
-          version: '11.x'
-          checkLatest: true
+stages:
+    - stage: Build
+      jobs:
+          - job: Build
+            pool:
+                vmImage: Ubuntu 16.04
+            steps:
+                - task: UseDotNet@2
+                  displayName: 'Install .Net Core 3.0'
+                  inputs:
+                      packageType: sdk
+                      version: 3.0.100-preview6-012264
+                      includePreviewVersions: true
 
-    - task: DotNetCoreCLI@2
-      displayName: 'Restore packages'
-      inputs:
-          command: restore
-          projects: '**/*.csproj'
-          feedsToUse: 'select'
-          verbosityRestore: 'minimal'
-          vstsFeed: 'BioEngine'
+                - task: UseNode@1
+                  displayName: 'install node'
+                  inputs:
+                      version: '11.x'
+                      checkLatest: true
 
-    - task: Npm@1
-      displayName: 'Install npm packages'
-      inputs:
-          command: 'custom'
-          customCommand: 'ci'
-          workingDir: 'src/BioEngine.BRC.Games'
+                - task: DotNetCoreCLI@2
+                  displayName: 'Restore packages'
+                  inputs:
+                      command: restore
+                      projects: '**/*.csproj'
+                      feedsToUse: 'select'
+                      verbosityRestore: 'minimal'
+                      vstsFeed: 'BioEngine'
 
-    - task: Npm@1
-      displayName: 'Build frontend'
-      inputs:
-          command: 'custom'
-          customCommand: 'run build-prod'
-          workingDir: 'src/BioEngine.BRC.Games'
+                - task: Npm@1
+                  displayName: 'Install npm packages'
+                  inputs:
+                      command: 'custom'
+                      customCommand: 'ci'
+                      workingDir: 'src/BioEngine.BRC.Games'
 
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish project'
-      inputs:
-          command: custom
-          custom: publish
-          publishWebProjects: false
-          zipAfterPublish: false
-          modifyOutputPath: false
-          arguments: '--no-restore -c Release --output ./publish'
-          projects: '**/*.csproj'
+                - task: Npm@1
+                  displayName: 'Build frontend'
+                  inputs:
+                      command: 'custom'
+                      customCommand: 'run build-prod'
+                      workingDir: 'src/BioEngine.BRC.Games'
 
-    - task: Docker@2
-      displayName: 'Build and push image'
-      inputs:
-          containerRegistry: 'BioWareRU DockerHub'
-          repository: 'biowareru/bioengine-brc-games'
-          command: 'buildAndPush'
-          Dockerfile: 'src/BioEngine.BRC.Games/Dockerfile'
-          buildContext: './publish'
-          tags: '$(Version)'
-    
+                - task: DotNetCoreCLI@2
+                  displayName: 'Publish project'
+                  inputs:
+                      command: custom
+                      custom: publish
+                      publishWebProjects: false
+                      zipAfterPublish: false
+                      modifyOutputPath: false
+                      arguments: '--no-restore -c Release --output ./publish'
+                      projects: '**/*.csproj'
+
+    - stage: Deploy
+      dependsOn: Build
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+      jobs:
+          - job: Publish
+            pool:
+                vmImage: Ubuntu 16.04
+            steps:
+                - task: Docker@2
+                      displayName: 'Build and push image'
+                      inputs:
+                          containerRegistry: 'BioWareRU DockerHub'
+                          repository: 'biowareru/bioengine-brc-games'
+                          command: 'buildAndPush'
+                          Dockerfile: 'src/BioEngine.BRC.Games/Dockerfile'
+                          buildContext: './publish'
+                          tags: '$(Version)'
