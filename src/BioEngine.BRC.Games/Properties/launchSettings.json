@@ -6,7 +6,7 @@
             "applicationUrl": "https://localhost:5005;http://localhost:5004",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "BE_SITE_ID": "5759068c-fd62-4bcb-8742-f5fd60c87071"
+                "BE_SITE_ID": "6122ba94-249a-428b-b040-a870b5fd3e3a"
             }
         },
         "BioEngine.BRC.Games Watch": {
@@ -18,7 +18,7 @@
             "applicationUrl": "https://localhost:5005;http://localhost:5004",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "BE_SITE_ID": "5759068c-fd62-4bcb-8742-f5fd60c87071"
+                "BE_SITE_ID": "6122ba94-249a-428b-b040-a870b5fd3e3a"
             }
         }
     }
