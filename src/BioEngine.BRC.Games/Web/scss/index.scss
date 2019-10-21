@@ -11,6 +11,35 @@ body {
     header {
         nav {
             background: rgba(0, 0, 0, 0.4);
+            .navbar-brand img {
+                max-height: 30px;
+            }
+        }
+        
+        
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        header {
+            nav {
+                .navbar-brand img {
+                    max-height: 40px;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    body {
+        header {
+            nav {
+                .navbar-brand img {
+                    max-height: 50px;
+                }
+            }
         }
     }
 }
