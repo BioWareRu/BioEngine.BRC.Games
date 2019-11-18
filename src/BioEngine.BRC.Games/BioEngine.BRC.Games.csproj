@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>bw</UserSecretsId>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BioEngine.BRC.Site" Version="3.0.*" Condition="!Exists('..\..\..\BioEngine.BRC.Common')" />
+    <PackageReference Include="BioEngine.BRC.Site" Version="3.1.*" Condition="!Exists('..\..\..\BioEngine.BRC.Common')" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Common')" />
