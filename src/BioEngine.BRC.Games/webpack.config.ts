@@ -71,8 +71,7 @@ module.exports = (env, argv) => {
                 Promise: 'es6-promise',
             }),
             new MiniCssExtractPlugin({
-                filename: argv.mode !== 'production' ? '[name].css' : '[name].[hash].css',
-                chunkFilename: argv.mode !== 'production' ? '[id].css' : '[id].[hash].css',
+                filename: "styles.css",
                 cssProcessorOptions: {
                     safe: true,
                     discardComments: {
@@ -86,26 +85,13 @@ module.exports = (env, argv) => {
                     to: 'mdb-addons',
                     context: path.resolve(__dirname, 'src', 'vendors', 'mdb', 'mdb-addons'),
                 },
-            ]),
-            new HtmlWebpackPlugin({
-                filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_Styles.cshtml'),
-                template: path.join(__dirname, '/Views/Shared/Assets/_StylesTemplate.cshtml'),
-                inject: false
-            }),
-            new HtmlWebpackPlugin({
-                filename: path.join(__dirname, '/Views/Shared/Assets/_Gen_Scripts.cshtml'),
-                template: path.join(__dirname, '/Views/Shared/Assets/_ScriptsTemplate.cshtml'),
-                inject: false
-            })
+            ])
         ],
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],
             modules: ['node_modules'],
         },
         optimization: {
-            splitChunks: {
-                chunks: 'all',
-            },
             minimizer: [
                 new TerserPlugin({
                     parallel: true,

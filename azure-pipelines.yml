@@ -30,20 +30,6 @@ stages:
                       verbosityRestore: 'minimal'
                       vstsFeed: 'BioEngine'
 
-                - task: Npm@1
-                  displayName: 'Install npm packages'
-                  inputs:
-                      command: 'custom'
-                      customCommand: 'ci'
-                      workingDir: 'src/BioEngine.BRC.Games'
-
-                - task: Npm@1
-                  displayName: 'Build frontend'
-                  inputs:
-                      command: 'custom'
-                      customCommand: 'run build-prod'
-                      workingDir: 'src/BioEngine.BRC.Games'
-
                 - task: DotNetCoreCLI@2
                   displayName: 'Publish project'
                   inputs:
