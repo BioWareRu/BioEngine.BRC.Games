@@ -4,22 +4,22 @@
     "description": "brcgames.ru frontend",
     "main": "index.js",
     "dependencies": {
-        "bioengine.brc.frontend": "^1.5.3"
+        "bioengine.brc.frontend": "^1.5.4"
     },
     "devDependencies": {
-        "@types/node": "^12.12.18",
+        "@types/node": "^12.12.21",
         "awesome-typescript-loader": "^5.2.1",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^5.1.1",
-        "css-loader": "^3.3.2",
+        "css-loader": "^3.4.0",
         "file-loader": "^5.0.2",
         "html-loader": "^0.5.5",
         "html-webpack-plugin": "^3.2.0",
-        "mini-css-extract-plugin": "^0.8.0",
+        "mini-css-extract-plugin": "^0.8.2",
         "node-sass": "^4.13.0",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "sass-loader": "^8.0.0",
-        "style-loader": "^1.0.1",
+        "style-loader": "^1.0.2",
         "terser-webpack-plugin": "^2.3.1",
         "ts-node": "^8.5.4",
         "tslint": "^5.20.1",
