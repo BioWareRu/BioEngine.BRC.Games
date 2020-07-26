@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using BioEngine.BRC.Site;
+using Microsoft.Extensions.Hosting;
 
 namespace BioEngine.BRC.Games
 {
@@ -7,9 +8,14 @@ namespace BioEngine.BRC.Games
     {
         public static async Task Main(string[] args)
         {
-            var bioEngine = new Core.BioEngine(args).AddBrcSite();
-
-            await bioEngine.RunAsync<Startup>();
+            var application = CreateApplication(args);
+            await application.RunAsync<Startup>();
         }
+
+        // need for migrations
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            CreateApplication(args).CreateBasicHostBuilder<Startup>();
+
+        public static BRCSiteApplication CreateApplication(string[] args) => new BRCSiteApplication(args);
     }
 }
