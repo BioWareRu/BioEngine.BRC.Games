@@ -78,14 +78,7 @@ module.exports = (env, argv) => {
                         removeAll: true,
                     },
                 },
-            }),
-            new CopyWebpackPlugin([
-                {
-                    from: '**/*',
-                    to: 'mdb-addons',
-                    context: path.resolve(__dirname, 'src', 'vendors', 'mdb', 'mdb-addons'),
-                },
-            ])
+            })
         ],
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],
