@@ -7,17 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BioEngine.BRC.Site" Version="3.1.*" Condition="!Exists('..\..\..\BioEngine.BRC.Common')" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BioEngine.BRC.Common\src\BioEngine.BRC.Site\BioEngine.BRC.Site.csproj" Condition="Exists('..\..\..\BioEngine.BRC.Common')" />
+    <PackageReference Include="BioEngine.BRC.Site" Version="3.2.1"/>
   </ItemGroup>
   <Target Name="BuildClientAssets" AfterTargets="Build" Condition="$(Configuration) == 'Release'">
-    <Exec Command="npm ci" />
-    <Exec Command="npm run build" />
+    <Exec Command="npm ci"/>
+    <Exec Command="npm run build"/>
   </Target>
 </Project>
