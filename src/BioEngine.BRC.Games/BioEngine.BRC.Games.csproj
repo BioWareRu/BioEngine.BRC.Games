@@ -9,8 +9,4 @@
   <ItemGroup>
     <PackageReference Include="BioEngine.BRC.Site" Version="3.2.1"/>
   </ItemGroup>
-  <Target Name="BuildClientAssets" AfterTargets="Build" Condition="$(Configuration) == 'Release'">
-    <Exec Command="npm ci"/>
-    <Exec Command="npm run build"/>
-  </Target>
 </Project>

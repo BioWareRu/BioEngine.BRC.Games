@@ -12,12 +12,19 @@ jobs:
             PROJECT: "BioEngine.BRC.Games"
         steps:
             -   uses: actions/checkout@v2
-            -   uses: actions/setup-dotnet@v1
+            -   name: Install .NET
+                uses: actions/setup-dotnet@v1
                 with:
                     dotnet-version: '3.1.x'
-            -   uses: actions/setup-node@v2.1.4
+            -   name: Install NodeJS
+                uses: actions/setup-node@v2.1.4
                 with:
                     node-version: '14'
+            -   name: Build JS
+                working-directory: src/${{ env.PROJECT}}
+                run: |
+                    npm ci
+                    npm run build-prod
             -   name: Prepare
                 id: prep
                 shell: bash
