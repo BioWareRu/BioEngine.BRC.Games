@@ -17,7 +17,7 @@ jobs:
                 with:
                     dotnet-version: '3.1.x'
             -   name: Install NodeJS
-                uses: actions/setup-node@v2.1.4
+                uses: actions/setup-node@v2.1.5
                 with:
                     node-version: '14'
             -   name: Build JS
