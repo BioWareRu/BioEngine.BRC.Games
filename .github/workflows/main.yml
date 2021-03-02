@@ -26,6 +26,7 @@ jobs:
                 working-directory: src/${{ env.PROJECT}}
                 run: |
                     whoami
+                    ls -la
                     npm ci
                     npm run build
             -   name: Publish app
