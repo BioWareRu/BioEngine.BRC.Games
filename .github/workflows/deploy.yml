@@ -19,7 +19,7 @@ jobs:
             -   name: Install NodeJS
                 uses: actions/setup-node@v2.1.5
                 with:
-                    node-version: '14'
+                    node-version: '13'
             -   name: Build JS
                 working-directory: src/${{ env.PROJECT}}
                 run: |
