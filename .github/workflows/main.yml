@@ -21,16 +21,11 @@ jobs:
             -   name: Install NodeJS
                 uses: actions/setup-node@v2.1.5
                 with:
-                    node-version: '13'
+                    node-version: '15'
             -   name: Build JS
                 working-directory: src/${{ env.PROJECT}}
                 run: |
-                    whoami
-                    ls -la
-                    mkdir -p /__w/BioEngine.BRC.Games/BioEngine.BRC.Games/src/BioEngine.BRC.Games/node_modules/node-sass/vendor/linux-x64-83
-                    node -v
-                    npm -v
-                    npm i
+                    npm ci
                     npm run build
             -   name: Publish app
                 run: dotnet publish src/${{ env.PROJECT}}/${{ env.PROJECT}}.csproj --output /app/ --configuration Release
