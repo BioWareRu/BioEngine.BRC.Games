@@ -28,6 +28,8 @@ jobs:
                     whoami
                     ls -la
                     mkdir -p /__w/BioEngine.BRC.Games/BioEngine.BRC.Games/src/BioEngine.BRC.Games/node_modules/node-sass/vendor/linux-x64-83
+                    node -v
+                    npm -v
                     npm i
                     npm run build
             -   name: Publish app
