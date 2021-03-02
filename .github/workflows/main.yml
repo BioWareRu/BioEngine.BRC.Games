@@ -28,7 +28,7 @@ jobs:
                     whoami
                     ls -la
                     mkdir -p /__w/BioEngine.BRC.Games/BioEngine.BRC.Games/src/BioEngine.BRC.Games/node_modules/node-sass/vendor/linux-x64-83
-                    npm ci
+                    npm i
                     npm run build
             -   name: Publish app
                 run: dotnet publish src/${{ env.PROJECT}}/${{ env.PROJECT}}.csproj --output /app/ --configuration Release
