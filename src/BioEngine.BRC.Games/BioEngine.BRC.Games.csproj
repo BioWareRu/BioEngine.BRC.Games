@@ -7,6 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BioEngine.BRC.Site" Version="3.2.1"/>
+    <PackageReference Include="BioEngine.BRC.Site" Version="3.2.2"/>
   </ItemGroup>
 </Project>
